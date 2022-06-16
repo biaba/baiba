@@ -1,30 +1,28 @@
 package com.skujevska.baiba.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
+import com.skujevska.baiba.model.Car;
+import com.skujevska.baiba.repository.CarRepository;
+import com.skujevska.baiba.service.CarService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RestController
-@RequestMapping("/api/cars")
+@Controller
 public class CarController {
-    @GetMapping
-    public String allAccess() {
-        return "Public Content.";
-    }
 
-    @GetMapping("/user")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    public String userAccess() {
-        return "User Content.";
-    }
+    @Autowired
+    CarService carService;
 
-    @GetMapping("/admin")
-    @PreAuthorize("hasRole('ADMIN')")
-    public String adminAccess() {
-        return "Admin Board.";
+    @GetMapping("/cars")
+    public String cars(Model model) {
+        List<Car> cars = carService.findAll();
+        model.addAttribute("cars", cars);
+        return "cars";
     }
 }
 

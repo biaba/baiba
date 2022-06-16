@@ -1,7 +1,6 @@
 package com.skujevska.baiba.model;
 
 import lombok.Data;
-
 import javax.persistence.*;
 
 @Data

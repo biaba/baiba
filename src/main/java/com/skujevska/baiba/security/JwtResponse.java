@@ -1,4 +1,4 @@
-package com.skujevska.baiba.payload.response;
+package com.skujevska.baiba.security;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 public class JwtResponse {
     private String token;
-    private String type = "Bearer";
+    private String type;
     private Long id;
     private String username;
     private List<String> roles;
