@@ -7,13 +7,9 @@
         <title>Login</title>
     </head>
     <body>
-    <c:if test="${addUserSuccess}">
-        <div>You are registered: ${savedUser.username}. Log in.</div>
+    <c:if test="${not empty param.addUserSuccess}" >
+        <div>You are registered: ${param.savedUser}. Log in.</div>
     </c:if>
-    <c:if test="${wrongCredentials}">
-        <div>Username or password are wrong</div>
-    </c:if>
-
     <h1>Login</h1>
 
     <form th:action="@{/login}" method="post">
