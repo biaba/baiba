@@ -16,7 +16,6 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'docker network create -d bridge test-pipeline' docker.image("postgres").withRun("-p 5432:5432 -e POSTGRES_PASSWORD=admin -e POSTGRES_DB=cars --network test-pipeline --name db")
                 sh 'mvn test'
             }
             post {
