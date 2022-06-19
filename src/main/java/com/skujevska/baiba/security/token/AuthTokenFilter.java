@@ -57,7 +57,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         if (cookies.contains("Bearer")) {
             System.out.println(" CONTAINS BEARER");
             List<String> list = Arrays.asList(cookies.split(" "));
-            String headerAuth = list.get(list.indexOf("Bearer") + 2);
+
+            String headerAuth = list.get(list.indexOf("Authorization=Bearer") + 1);
             System.out.println("Bearer extracted: " + headerAuth);
 
             return headerAuth;

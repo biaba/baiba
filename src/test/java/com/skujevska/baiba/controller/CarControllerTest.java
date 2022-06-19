@@ -10,6 +10,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -46,9 +47,9 @@ public class CarControllerTest {
 
     @Test
     @Order(2)
+    @WithMockUser
     public void gettingCars() throws Exception {
-        mockMvc.perform(get("/cars")
-                        .cookie(new Cookie("Bearer", " eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJ0YSIsImlhdCI6MTY1NTQ3NzgyNywiZXhwIjoxNjU1NTY0MjI3fQ.FvKktb2_Ubh-4Ods_F_qzSy9mBW2JVocAzXcM9s46qTouXTBj-QALZsR02OzC2DYYP6VJYJF2c7_3aUkFzegvw")))
+        mockMvc.perform(get("/cars"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("cars"))
                 .andExpect(view().name("cars"));
