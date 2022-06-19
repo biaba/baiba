@@ -1,4 +1,3 @@
-/*
 package com.skujevska.baiba.controller;
 
 import com.skujevska.baiba.model.User;
@@ -91,4 +90,3 @@ public class AuthControllerTest {
                 .andExpect(redirectedUrl("/signin?error"));
     }
 }
-*/
