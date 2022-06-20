@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Push') {
             steps {
-                sh 'git push https://biaba:mushmire@github.com/biaba/baiba.git HEAD:feature'
+                sh 'git push https://biaba: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@github.com/biaba/baiba.git HEAD:feature'
             }
         }
     }
