@@ -24,9 +24,9 @@ pipeline {
                 }
             }
         }
-        stage('Deliver') {
+        stage('Push') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                sh 'git push origin feature:feature
             }
         }
     }
