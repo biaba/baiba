@@ -26,7 +26,7 @@ pipeline {
         }
         stage('Push') {
             steps {
-                sh 'git push origin feature:feature
+                sh 'git push origin feature:feature'
             }
         }
     }
