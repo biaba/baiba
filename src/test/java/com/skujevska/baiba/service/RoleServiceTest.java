@@ -2,22 +2,18 @@ package com.skujevska.baiba.service;
 
 import com.skujevska.baiba.model.Role;
 import com.skujevska.baiba.model.RoleE;
-import com.skujevska.baiba.model.User;
 import com.skujevska.baiba.repository.RoleRepository;
-import com.skujevska.baiba.repository.UserRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.postgresql.util.PSQLException;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -31,32 +27,32 @@ class RoleServiceTest {
     @InjectMocks
     RoleService service = new RoleService();
 
-    private Optional<Role> role;
+    Optional<Role> role;
 
     @BeforeAll
-    public void setup() {
+    void setup() {
         this.role = createRole();
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void roleExists() {
+    void roleExists() {
         when(repository.findByName(any(RoleE.class))).thenReturn(role);
 
         Optional<Role> result = this.service.findByName(RoleE.ROLE_USER);
-        assertThat(result.isPresent());
+        assertThat(result).isPresent();
         assertThat(result.get().getName()).isEqualTo(RoleE.ROLE_USER);
     }
 
     @Test
-    public void roleNotExists() {
+    void roleNotExists() {
         when(repository.findByName(any(RoleE.class))).thenReturn(Optional.empty());
 
         Optional<Role> result = this.service.findByName(RoleE.ROLE_USER);
         assertThat(result.isEmpty());
     }
 
-    private Optional<Role> createRole() {
+    Optional<Role> createRole() {
         Role role = new Role();
         role.setId(1l);
         role.setName(RoleE.ROLE_USER);

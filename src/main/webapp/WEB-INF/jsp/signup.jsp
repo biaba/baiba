@@ -9,7 +9,7 @@
     <body>
     <h1>Register</h1>
     <c:if test="${not empty param.userNameTaken}" >
-        <div>Username taken. Try again.</div>
+        <p style="color: red">Username taken. Try again.</p>
     </c:if>
         <form th:action="@{/signup}" method="post">
             <div><label> User Name : <input type="text" name="username"/> </label></div>

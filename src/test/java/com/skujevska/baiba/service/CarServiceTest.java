@@ -3,14 +3,12 @@ package com.skujevska.baiba.service;
 import com.skujevska.baiba.model.Car;
 import com.skujevska.baiba.model.User;
 import com.skujevska.baiba.repository.CarRepository;
-import com.skujevska.baiba.repository.UserRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.postgresql.util.PSQLException;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -30,16 +28,16 @@ class CarServiceTest {
     @InjectMocks
     CarService service = new CarService();
 
-    private List<Car> cars;
+    List<Car> cars;
 
     @BeforeAll
-    public void setup() {
+    void setup() {
         this.cars = createList();
         MockitoAnnotations.openMocks(this);
     }
 
     @Test
-    public void getListSuccess() {
+    void getListSuccess() {
         when(repository.findAll()).thenReturn(cars);
 
         List<Car> result = this.service.findAll();
@@ -48,14 +46,14 @@ class CarServiceTest {
     }
 
     @Test
-    public void getEmptyList() {
+    void getEmptyList() {
         when(repository.findAll()).thenReturn(Collections.emptyList());
 
         List<Car> result = this.service.findAll();
-        assertThat(result.size()).isEqualTo(0);
+        assertThat(result).isEmpty();
     }
 
-    private List<Car> createList() {
+    List<Car> createList() {
         List<Car> list = new ArrayList<>();
         list.add(new Car(1l, "audi", 100, new User()));
         list.add(new Car(2l, "volvo", 200, new User()));

@@ -30,13 +30,13 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        System.out.println(" IN FILTER");
+        logger.info(" IN FILTER");
         if (request.getHeader("Cookie")!= null && request.getHeader("Cookie").contains("Bearer")) {
             try {
                 String jwt = parseJwt(request);
                 if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                     String username = jwtUtils.getUserNameFromJwtToken(jwt);
-                    System.out.println(" IN TOKEN VALIDATION " + username);
+                    logger.info(" IN TOKEN VALIDATION: {} " + username);
 
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
@@ -55,11 +55,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private String parseJwt(HttpServletRequest request) {
         String cookies = request.getHeader("Cookie");
         if (cookies.contains("Bearer")) {
-            System.out.println(" CONTAINS BEARER");
+            logger.info(" CONTAINS BEARER");
             List<String> list = Arrays.asList(cookies.split(" "));
 
             String headerAuth = list.get(list.indexOf("Authorization=Bearer") + 1);
-            System.out.println("Bearer extracted: " + headerAuth);
+            logger.info("Bearer extracted: {}" + headerAuth);
 
             return headerAuth;
         }

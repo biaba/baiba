@@ -1,17 +1,16 @@
 package com.skujevska.baiba.controller;
 
+import com.skujevska.baiba.frontmodel.UserFront;
 import com.skujevska.baiba.model.User;
 import com.skujevska.baiba.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class AuthController {
     @Autowired
@@ -22,31 +21,31 @@ public class AuthController {
 
     @GetMapping
     public String home(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserFront());
         return "home";
     }
     @GetMapping("/signin")
     public String login(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserFront());
         return "login";
     }
 
     @GetMapping("/signup")
     public String register(Model model) {
-        model.addAttribute("user", new User());
+        model.addAttribute("user", new UserFront());
         return "signup";
     }
 
     @PostMapping("/signup")
-    public RedirectView registerUser(@ModelAttribute("user") User user,
+    public RedirectView registerUser(@ModelAttribute("user") UserFront userFront,
                                      RedirectAttributes redirectAttributes) {
-        if (userService.existsByUsername(user.getUsername())) {
+        if (userService.existsByUsername(userFront.getUsername())) {
             final RedirectView redirectView = new RedirectView("/signup", true);
             redirectAttributes.addAttribute("userNameTaken", true);
             return redirectView;
         }
         final RedirectView redirectView = new RedirectView("/signin", true);
-        User savedUser = userService.save(user);
+        User savedUser = userService.save(userFront);
         redirectAttributes.addAttribute("savedUser", savedUser.getUsername());
         redirectAttributes.addAttribute("addUserSuccess", true);
         return redirectView;

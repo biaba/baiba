@@ -7,8 +7,11 @@
         <title>Login</title>
     </head>
     <body>
+    <c:if test="${param.error!=null}">
+        <p style="color: red">You entered wrong credentials!</p>
+    </c:if>
     <c:if test="${not empty param.addUserSuccess}" >
-        <div>You are registered: ${param.savedUser}. Log in.</div>
+    <p style="color: green">You are registered: ${param.savedUser}. Log in.</p>
     </c:if>
     <h1>Login</h1>
 

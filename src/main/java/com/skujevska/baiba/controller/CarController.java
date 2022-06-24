@@ -1,7 +1,6 @@
 package com.skujevska.baiba.controller;
 
 import com.skujevska.baiba.model.Car;
-import com.skujevska.baiba.repository.CarRepository;
 import com.skujevska.baiba.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 public class CarController {
 

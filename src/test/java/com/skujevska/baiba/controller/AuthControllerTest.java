@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AuthControllerTest {
 
     @Autowired
-    private MockMvc mvc;
+    MockMvc mvc;
 
     @Autowired
     CarService carService;
@@ -29,7 +29,7 @@ public class AuthControllerTest {
 
     @Test
     @Order(1)
-    public void homeContainsUserForm() throws Exception {
+    void homeContainsUserForm() throws Exception {
         mvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("user"))
@@ -38,21 +38,21 @@ public class AuthControllerTest {
 
     @Test
     @Order(2)
-    public void accessLoginToALl() throws Exception {
+    void accessLoginToAll() throws Exception {
         mvc.perform(get("/signup"))
                 .andExpect(status().isOk());
     }
 
     @Test
     @Order(3)
-    public void accessSignUpToALl() throws Exception {
+    void accessSignUpToAll() throws Exception {
         mvc.perform(get("/signin"))
                 .andExpect(status().isOk());
     }
 
     @Test
     @Order(4)
-    public void registerSucceeds() throws Exception {
+    void registerSucceeds() throws Exception {
         mvc.perform(post("/signup")
                         .param("username", user.getUsername())
                         .param("password", user.getPassword())
@@ -62,7 +62,7 @@ public class AuthControllerTest {
 
     @Test
     @Order(5)
-    public void registerNotSucceedsUserExists() throws Exception {
+    void registerNotSucceedsUserExists() throws Exception {
         mvc.perform(post("/signup")
                         .param("username", user.getUsername())
                         .param("password", user.getPassword())

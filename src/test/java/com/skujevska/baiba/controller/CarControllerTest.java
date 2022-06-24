@@ -31,13 +31,13 @@ public class CarControllerTest {
     CarService carService;
 
     @Autowired
-    private MockMvc mockMvc;
+    MockMvc mockMvc;
 
-    private List<Car> cars = createList();
+    List<Car> cars = createList();
 
     @Test
     @Order(1)
-    public void notAuthorizedUser() throws Exception {
+    void notAuthorizedUser() throws Exception {
 
         this.mockMvc.perform(get("/cars")
                         .cookie(new Cookie("Bearer", " wrong cookie")))
@@ -48,7 +48,7 @@ public class CarControllerTest {
     @Test
     @Order(2)
     @WithMockUser
-    public void gettingCars() throws Exception {
+    void gettingCars() throws Exception {
         mockMvc.perform(get("/cars"))
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("cars"))
@@ -57,13 +57,13 @@ public class CarControllerTest {
 
     @Test
     @Order(3)
-    public void wrongUrl() throws Exception {
+    void wrongUrl() throws Exception {
         mockMvc.perform(post("/car"))
                 .andExpect(MockMvcResultMatchers.status().is4xxClientError()).andReturn();
 
     }
 
-    private List<Car> createList() {
+    List<Car> createList() {
         List<Car> list = new ArrayList<>();
         list.add(new Car(1l, "audi", 100, new User()));
         list.add(new Car(2l, "volvo", 200, new User()));
