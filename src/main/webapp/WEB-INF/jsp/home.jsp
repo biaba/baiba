@@ -13,12 +13,14 @@
 <html>
 <body>
     <sec:authorize access="!isAuthenticated()">
-        <a  href="${pageContext.request.contextPath}/signup">Register</a></br>
-        <a  href="${pageContext.request.contextPath}/signin">Login</a></br>
+        <span id="logedIn">
+        <a  href="${pageContext.request.contextPath}/signup" id="register">Register</a></br>
+        <a  href="${pageContext.request.contextPath}/signin" id="login">Login</a></span>
     </sec:authorize>
     <sec:authorize access="isAuthenticated()">
-        <a  href="${pageContext.request.contextPath}/logout">Logout</a></br>
-        <a  href="${pageContext.request.contextPath}/cars">Top Cars</a></br>
-    </sec:authorize>
+    <span id="logedOut">
+        <a  href="${pageContext.request.contextPath}/logout" id="logout">Logout</a></br>
+        <a  href="${pageContext.request.contextPath}/cars" id="topCars">Top Cars</a></br>
+        </sec:authorize></span>
 </body>
 </html>
