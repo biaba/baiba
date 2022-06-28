@@ -1,4 +1,4 @@
-package com.skujevska.baiba;
+package com.skujevska.baiba.selenium;
 
 import org.junit.*;
 import org.junit.runner.RunWith;
