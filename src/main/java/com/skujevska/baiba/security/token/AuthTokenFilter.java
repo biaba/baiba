@@ -36,7 +36,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 String jwt = parseJwt(request);
                 if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                     String username = jwtUtils.getUserNameFromJwtToken(jwt);
-                    logger.info(" IN TOKEN VALIDATION: {} " + username);
+                    logger.info(" IN TOKEN VALIDATION: {} ", username);
 
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
@@ -59,7 +59,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
             List<String> list = Arrays.asList(cookies.split(" "));
 
             String headerAuth = list.get(list.indexOf("Authorization=Bearer") + 1);
-            logger.info("Bearer extracted: {}" + headerAuth);
+            logger.info("Bearer extracted: {}", headerAuth);
 
             return headerAuth;
         }

@@ -41,7 +41,7 @@ class CarServiceTest {
         when(repository.findAll()).thenReturn(cars);
 
         List<Car> result = this.service.findAll();
-        assertThat(result.size()).isEqualTo(2);
+        assertThat(result).hasSize(2);
         assertThat(result.get(0).getName()).isEqualTo("audi");
     }
 

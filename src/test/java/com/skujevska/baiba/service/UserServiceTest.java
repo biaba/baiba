@@ -59,7 +59,7 @@ class UserServiceTest {
         when(repository.existsByUsername(any(String.class))).thenReturn(true);
 
         boolean result = this.service.existsByUsername("oto");
-        assertThat(result).isEqualTo(true);
+        assertThat(result).isTrue();
     }
 
     @Test

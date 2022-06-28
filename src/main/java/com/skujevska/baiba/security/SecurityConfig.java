@@ -15,23 +15,13 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutHandler;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -101,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             roles);
 
                     response.setHeader("Set-Cookie", "Authorization=Bearer " + token.getToken() + " HttpOnly");
-                    logger.info("The user {} has logged in" + userDetails.getUsername());
+                    logger.info(userDetails.getUsername(), "The user {} has logged in");
 
                     response.sendRedirect(request.getContextPath());
                 }).and()
@@ -111,11 +101,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     {
                         SecurityContextHolder.clearContext();
                         try {
-                            logger.info("Logged Out Handler");
                             response.setHeader("Set-Cookie", "Authorization=Bearer " + null);
                             response.sendRedirect("/");
                         } catch (IOException e) {
-                            logger.info("Exception: " + e);
+                            logger.info("Exception: {}", e);
                         }
                     }
                 }).permitAll();

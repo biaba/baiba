@@ -49,7 +49,7 @@ class RoleServiceTest {
         when(repository.findByName(any(RoleE.class))).thenReturn(Optional.empty());
 
         Optional<Role> result = this.service.findByName(RoleE.ROLE_USER);
-        assertThat(result.isEmpty());
+        assertThat(result).isEmpty();
     }
 
     Optional<Role> createRole() {
