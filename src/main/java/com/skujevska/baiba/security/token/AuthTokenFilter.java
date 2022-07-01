@@ -1,8 +1,7 @@
 package com.skujevska.baiba.security.token;
 
 import com.skujevska.baiba.security.UserDetailsServiceImpl;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +17,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtils jwtUtils;
@@ -25,18 +25,16 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthTokenFilter.class);
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
-        logger.info(" IN FILTER");
+        log.info(" IN FILTER");
         if (request.getHeader("Cookie")!= null && request.getHeader("Cookie").contains("Bearer")) {
             try {
                 String jwt = parseJwt(request);
                 if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
                     String username = jwtUtils.getUserNameFromJwtToken(jwt);
-                    logger.info(" IN TOKEN VALIDATION: {} ", username);
+                    log.info(" IN TOKEN VALIDATION: {} ", username);
 
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
@@ -46,7 +44,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             } catch (Exception e) {
-                logger.error("Cannot set user authentication: {}", e);
+                log.error("Cannot set user authentication: {}", e);
             }
         }
         filterChain.doFilter(request, response);
@@ -55,11 +53,11 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private String parseJwt(HttpServletRequest request) {
         String cookies = request.getHeader("Cookie");
         if (cookies.contains("Bearer")) {
-            logger.info(" CONTAINS BEARER");
+            log.info(" CONTAINS BEARER");
             List<String> list = Arrays.asList(cookies.split(" "));
 
             String headerAuth = list.get(list.indexOf("Authorization=Bearer") + 1);
-            logger.info("Bearer extracted: {}", headerAuth);
+            log.info("Bearer extracted: {}", headerAuth);
 
             return headerAuth;
         }
