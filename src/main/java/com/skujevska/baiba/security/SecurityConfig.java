@@ -3,8 +3,7 @@ package com.skujevska.baiba.security;
 import com.skujevska.baiba.security.token.AuthEntryPoint;
 import com.skujevska.baiba.security.token.AuthTokenFilter;
 import com.skujevska.baiba.security.token.JwtUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,9 +28,8 @@ import java.util.stream.Collectors;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
         prePostEnabled = true)
+@Slf4j
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;
@@ -91,7 +89,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             roles);
 
                     response.setHeader("Set-Cookie", "Authorization=Bearer " + token.getToken() + " HttpOnly");
-                    logger.info(userDetails.getUsername(), "The user {} has logged in");
+                    log.info(userDetails.getUsername(), "The user {} has logged in");
 
                     response.sendRedirect(request.getContextPath());
                 }).and()
@@ -104,7 +102,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                             response.setHeader("Set-Cookie", "Authorization=Bearer " + null);
                             response.sendRedirect("/");
                         } catch (IOException e) {
-                            logger.info("Exception: {}", e);
+                            log.info("Exception: {}", e);
                         }
                     }
                 }).permitAll();

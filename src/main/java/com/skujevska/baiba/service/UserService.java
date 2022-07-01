@@ -26,8 +26,6 @@ public class UserService {
     PasswordEncoder encoder;
 
     public boolean existsByUsername(String userName) {
-
-
         return userRepository.existsByUsername(userName);
     }
 
