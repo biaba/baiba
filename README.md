@@ -11,7 +11,7 @@ Tests include:
 - Selenium tests
 - Cucumber tests
 
-The application allows users to register/login/logout
+The application allows users to register/login/logout.
 For loged in users the list of cars from DB is displayed. 
 
 The front-end and database functionality is basic with main focus on Spring Security, JWT and session handling. 
