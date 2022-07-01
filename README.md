@@ -4,6 +4,7 @@ Used technologies and tools:
 - Postgres DB (configured to run locally)
 - Jenkins integration
 - SonarQube integration (with JaCoCo testing coverage tool)
+- Liquibase
 
 Tests include:
 - unit tests
