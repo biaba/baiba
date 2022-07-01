@@ -1,4 +1,5 @@
 package com.skujevska.baiba.security.token;
+
 import java.util.Date;
 
 import com.skujevska.baiba.security.UserDetailsImpl;
