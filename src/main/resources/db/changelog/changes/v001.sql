@@ -1,0 +1,14 @@
+CREATE OR REPLACE FUNCTION trigger_set_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TABLE IF NOT EXISTS book (
+   id SERIAL NOT NULL,
+   name varchar(250) UNIQUE NOT NULL,
+   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+   PRIMARY KEY(id)
+);

@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - includeAll:
+      path: db/changelog/changes/
+  - changeSet:
+        id: loadUpdate-seed
+        author: liquibase-docs
+        changes:
+          - loadUpdateData:
+              catalogName: book
+              columns:
+                - column:
+                    index: 0
+                    name: name
+                    type: STRING
+              encoding: UTF-8
+              file: books.csv
+              primaryKey: id
+              relativeToChangelogFile: true
+              schemaName: public
+              separator: ','
+              quotchar:  '""'
+              tableName: book
