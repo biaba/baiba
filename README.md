@@ -36,3 +36,8 @@ Tests include:
     3. create database - books
 - run mvn clean install and run application
 - go to localhost:8083 and enjoy
+
+# To create and run .war locally
+- clone project
+- run:  mvn clean package spring-boot:repackage
+- run: java -jar target/tieto-books.war
